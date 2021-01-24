@@ -15,4 +15,8 @@ public class Domino {
     public String toString() {
         return "| " + leftValue + "--" + rightValue + " |" + "\n";
     }
+
+    public int getFreeValue() {
+        return freeRight?rightValue:leftValue;
+    }
 }

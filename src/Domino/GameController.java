@@ -37,7 +37,7 @@ public class GameController {
 
             }
         }
-        System.out.println(table);
+        System.out.println(table+" "+currentPlayer);
         for (Player player : players) {
             player.calculateSumDominos();
         }
@@ -109,20 +109,16 @@ public class GameController {
         int[] result = new int[2];
         Domino left = this.table.getFirst();
         Domino right = this.table.getLast();
-        result[0] = getFreeValue(left);
-        result[1] = getFreeValue(right);
-        return result;
-    }
-
-    private int getFreeValue(Domino left) {
-        int result = -1;
-        Domino neighbour = null;
-        Iterator<Domino> iter1 = table.iterator();
-        if (left.equals(table.getFirst())) {
-            iter1.hasNext();
-        } else {
-
+        if(left==right){
+            result[0] = left.leftValue;
+            result[1] = right.rightValue;
+        }else{
+            result[0] = left.getFreeValue();
+            result[1] = right.getFreeValue();
         }
+
         return result;
     }
+
+
 }

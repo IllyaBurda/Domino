@@ -27,7 +27,6 @@ public class Player {
         for (Domino domino : myDominos) {
             if (domino.leftValue == currentValue[0] || domino.rightValue == currentValue[0] || domino.leftValue == currentValue[1] || domino.rightValue == currentValue[1]) {
                 nextDomino = domino;
-
                 flag = true;
             }
         }
@@ -46,15 +45,29 @@ public class Player {
         for (Domino domino : myDominos) {
             sumOfDomino += domino.leftValue + domino.rightValue;
         }
-        System.out.println(this.name + " - " + sumOfDomino);
+        System.out.println(this.myDominos.size()+" -- "+this.name + " - " + sumOfDomino);
     }
 
     public void nextStep(Domino domino, GameController gameController) {
+        int[] currentValue = null;
         myDominos.remove(domino);
         if (gameController.table.isEmpty()) {
             gameController.table.add(domino);
         } else {
-
+            currentValue=gameController.getCurrentValue();
+if(domino.leftValue==currentValue[0]  ){
+    domino.freeLeft=false;
+    gameController.table.addFirst(domino);
+}else if(domino.rightValue==currentValue[0]){
+    domino.freeRight=false;
+    gameController.table.addFirst(domino);
+}else if(domino.leftValue==currentValue[1]){
+    domino.freeLeft=false;
+    gameController.table.addLast(domino);
+}else{
+    domino.freeRight=false;
+    gameController.table.addLast(domino);
+}
         }
 
         gameController.changePlayer();
